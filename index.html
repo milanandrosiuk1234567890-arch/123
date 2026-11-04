@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090a12">
+  <title>Ferrari Showroom | Explore the range</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #090a12;
+      --ink: #f6f4f1;
+      --muted: #a4a4b0;
+      --red: #ff3b8d;
+      --cyan: #66e4dc;
+      --line: rgba(255,255,255,.14);
+      --white: #f6f4f1;
+      --display: "Barlow Condensed", Impact, sans-serif;
+      --body: "DM Sans", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: linear-gradient(180deg, #090a12 0%, #11121d 55%, #0a0b13 100%); color: var(--ink); font-family: var(--body); }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    .ticker { min-height: 34px; display: flex; align-items: center; justify-content: center; padding: 7px 16px; background: var(--red); color: #130b14; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+    .site-header { height: 78px; padding: 0 5.2%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-bottom: 1px solid var(--line); background: rgba(9,10,18,.96); }
+    .nav-links { display: flex; gap: 27px; align-items: center; }
+    .nav-links a, .header-actions button { padding: 8px 0; background: none; border: 0; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+    .nav-links a:hover, .header-actions button:hover { color: var(--cyan); }
+    .brand { display: flex; flex-direction: column; align-items: center; line-height: .88; color: var(--red); }
+    .brand-word { font: 900 29px/.82 var(--display); letter-spacing: .4px; }
+    .brand-sub { margin-top: 6px; color: var(--muted); font: 700 8px var(--body); letter-spacing: 2.4px; }
+    .header-actions { display: flex; justify-content: flex-end; align-items: center; gap: 22px; }
+    .bag-button { display: inline-flex; align-items: center; gap: 8px; }
+    .bag-count { display: inline-grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; background: var(--red); color: #130b14; font-size: 10px; font-weight: 800; }
+    .menu-button { display: none; border: 0; background: none; color: var(--ink); font-size: 21px; cursor: pointer; }
+    .hero { position: relative; min-height: 650px; overflow: hidden; background: #171622; color: white; }
+    .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,8,15,.9) 0%, rgba(18,10,24,.56) 44%, rgba(14,9,18,.12) 100%), linear-gradient(0deg, rgba(255,59,141,.2), transparent 58%), url("https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&w=2200&q=88") center 52% / cover; transform: scale(1.015); animation: arrive 1.2s ease-out both; }
+    .hero::after { content: ""; position: absolute; right: 0; top: 0; width: 17%; height: 100%; background: linear-gradient(135deg, transparent 48%, rgba(255,59,141,.72) 48.2%, rgba(102,228,220,.58) 58%, transparent 58.2%); opacity: .8; pointer-events: none; }
+    .hero-content { position: relative; z-index: 1; width: min(680px, 85%); padding: 106px 0 90px 10%; animation: rise .75s .1s both; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: var(--cyan); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 27px; height: 2px; background: currentColor; }
+    h1 { margin: 20px 0 17px; font: 900 clamp(70px, 10vw, 138px)/.78 var(--display); letter-spacing: 0; text-transform: uppercase; }
+    h1 span { color: var(--red); }
+    .hero-copy { max-width: 380px; color: rgba(255,255,255,.82); font-size: 13px; line-height: 1.8; }
+    .primary-link { display: inline-flex; align-items: center; gap: 22px; margin-top: 20px; padding: 15px 20px; background: var(--red); color: #130b14; font-size: 10px; font-weight: 800; letter-spacing: 1.3px; text-transform: uppercase; transition: background .2s, gap .2s; }
+    .primary-link:hover { gap: 30px; background: var(--cyan); }
+    .hero-index { position: absolute; z-index: 1; right: 5.3%; bottom: 30px; color: rgba(255,255,255,.75); font: 700 12px var(--display); letter-spacing: 1px; }
+    .hero-index b { color: white; font-size: 20px; }
+    .service-strip { display: grid; grid-template-columns: repeat(3, 1fr); padding: 21px 8%; background: #12131e; border-bottom: 1px solid var(--line); }
+    .service { display: flex; align-items: center; justify-content: center; gap: 11px; font-size: 10px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; }
+    .service + .service { border-left: 1px solid #c9c6be; }
+    .service-mark { color: var(--cyan); font-size: 16px; }
+    .shop-section { max-width: 1680px; margin: 0 auto; padding: 88px 7.5% 100px; }
+    .section-top { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
+    .section-kicker { color: var(--cyan); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+    h2 { margin: 8px 0 0; font: 800 43px/.95 var(--display); letter-spacing: .3px; text-transform: uppercase; }
+    .section-note { margin: 9px 0 0; color: var(--muted); font-size: 12px; }
+    .category-tabs { display: flex; gap: 7px; padding-bottom: 2px; }
+    .category-tabs button { border: 1px solid var(--line); background: rgba(255,255,255,.025); color: var(--muted); padding: 11px 15px; cursor: pointer; font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; transition: .2s; }
+    .category-tabs button:hover, .category-tabs button.active { border-color: var(--red); background: var(--red); color: #130b14; }
+    .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 42px 24px; }
+    .product-card { min-width: 0; padding-bottom: 20px; border-bottom: 1px solid var(--line); animation: rise .45s both; }
+    .product-image { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #161722; }
+    .product-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+    .product-card:hover .product-image img { transform: scale(1.045); }
+    .product-card:hover .product-image { box-shadow: 0 16px 42px rgba(255,59,141,.16); }
+    .product-image::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgba(5,6,12,.54)); pointer-events: none; }
+    .product-tag { position: absolute; z-index: 1; top: 14px; left: 14px; padding: 8px 10px; background: var(--cyan); color: #071014; font-size: 9px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; }
+    .quick-add { position: absolute; z-index: 2; right: 12px; bottom: 12px; width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.55); background: rgba(9,10,18,.88); color: white; font-size: 20px; cursor: pointer; transition: background .2s, color .2s; }
+    .quick-add:hover { background: var(--red); color: #130b14; }
+    .product-meta { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 83px; padding-top: 13px; }
+    .product-name { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.35; }
+    .product-type { margin: 6px 0 0; color: var(--muted); font-size: 11px; }
+    .product-price { flex: 0 0 auto; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; font-size: 15px; font-weight: 700; white-space: nowrap; }
+    .product-price small { color: var(--muted); font-size: 8px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; }
+    .product-description { min-height: 56px; margin: 12px 0 0; color: var(--muted); font-size: 11px; line-height: 1.65; }
+    .feature-band { position: relative; min-height: 420px; display: flex; align-items: center; overflow: hidden; background: #12131e; color: white; }
+    .feature-band::before { content: ""; position: absolute; inset: 0 0 0 38%; background: linear-gradient(90deg, #12131e 0%, rgba(18,14,29,.26) 70%, rgba(255,59,141,.12) 100%), url("https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1600&q=85") center 52% / cover; opacity: .9; }
+    .feature-copy { position: relative; z-index: 1; padding: 65px 8%; max-width: 600px; }
+    .feature-copy .eyebrow { color: var(--cyan); }
+    .feature-copy h2 { margin-top: 17px; font-size: 56px; }
+    .feature-copy p { max-width: 340px; color: #c9c8c3; font-size: 12px; line-height: 1.8; }
+    .feature-copy .primary-link { margin-top: 12px; }
+    footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 30px 7.5%; background: #07080f; color: #a4a4b0; font-size: 9px; letter-spacing: .6px; border-top: 1px solid var(--line); }
+    .footer-brand { color: white; font: 800 20px var(--display); }
+    .footer-links { display: flex; gap: 22px; text-transform: uppercase; }
+    .footer-links a:hover { color: white; }
+    .toast { position: fixed; z-index: 10; right: 24px; bottom: 24px; padding: 14px 18px; background: var(--cyan); color: #091014; font-size: 11px; font-weight: 700; opacity: 0; transform: translateY(10px); pointer-events: none; transition: .25s; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @keyframes arrive { from { opacity: .6; transform: scale(1.04); } to { opacity: 1; transform: scale(1.015); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 900px) {
+      .site-header { padding: 0 4%; }
+      .nav-links { gap: 16px; }
+      .nav-links a, .header-actions button { font-size: 9px; }
+      .shop-section { padding-inline: 5%; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 25px 14px; }
+      .category-tabs button { padding: 9px; }
+    }
+    @media (max-width: 620px) {
+      .ticker { font-size: 8px; letter-spacing: 1px; }
+      .site-header { height: 64px; grid-template-columns: 1fr auto 1fr; }
+      .menu-button { display: block; justify-self: start; }
+      .nav-links { display: none; position: absolute; z-index: 5; top: 98px; left: 0; right: 0; padding: 18px 5%; background: #10111b; border-bottom: 1px solid var(--line); }
+      .nav-links.open { display: flex; flex-wrap: wrap; }
+      .brand-word { font-size: 25px; }
+      .brand-sub { font-size: 7px; }
+      .header-actions { gap: 11px; }
+      .header-actions .search-button { display: none; }
+      .header-actions button { font-size: 8px; }
+      .bag-count { width: 17px; height: 17px; }
+      .hero { min-height: 520px; }
+      .hero::before { background-position: 58% center; }
+      .hero-content { padding: 106px 0 80px 7%; width: 90%; }
+      h1 { font-size: clamp(62px, 17vw, 92px); }
+      .hero-copy { max-width: 300px; font-size: 12px; }
+      .hero-index { right: 6%; bottom: 22px; }
+      .service-strip { padding: 15px 3%; }
+      .service { gap: 6px; font-size: 7px; letter-spacing: .3px; }
+      .service-mark { font-size: 13px; }
+      .shop-section { padding: 57px 5% 65px; }
+      .section-top { display: block; margin-bottom: 20px; }
+      h2 { font-size: 37px; }
+      .category-tabs { margin-top: 20px; overflow-x: auto; }
+      .category-tabs button { flex: 0 0 auto; }
+      .product-grid { gap: 22px 10px; }
+      .product-image { aspect-ratio: 4 / 3; }
+      .product-tag { top: 8px; left: 8px; padding: 6px; font-size: 7px; }
+      .quick-add { right: 8px; bottom: 8px; width: 33px; height: 33px; }
+      .product-meta { align-items: flex-start; flex-direction: column; gap: 7px; min-height: 100px; }
+      .product-name { font-size: 12px; }
+      .product-price { align-items: baseline; flex-direction: row; gap: 5px; font-size: 12px; }
+      .product-type { font-size: 9px; }
+      .product-price small { font-size: 7px; }
+      .feature-band { min-height: 390px; align-items: end; }
+      .feature-band::before { inset: 0; background-image: linear-gradient(0deg, #12131e 0%, rgba(18,14,29,.2) 100%), url("https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1000&q=85"); background-position: 55% center; }
+      .feature-copy { padding: 55px 7% 45px; }
+      .feature-copy h2 { font-size: 48px; }
+      footer { align-items: flex-start; flex-direction: column; padding: 27px 5%; }
+      .footer-links { flex-wrap: wrap; gap: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="ticker">Ferrari model showroom &nbsp;|&nbsp; Road cars, special series and track models</div>
+  <header class="site-header">
+    <button class="menu-button" id="menuToggle" aria-label="Open menu">☰</button>
+    <nav class="nav-links" id="mainNav" aria-label="Main navigation">
+      <a href="#collection">Cars</a>
+      <a href="#collection" data-filter-link="gt">GT</a>
+      <a href="#collection" data-filter-link="hybrid">Hybrid</a>
+      <a href="#collection" data-filter-link="suv">SUV</a>
+      <a href="#collection" data-filter-link="special">Specials</a>
+      <a href="#collection" data-filter-link="classic">Classics</a>
+    </nav>
+    <a class="brand" href="#top" aria-label="Ferrari showroom home"><span class="brand-word">FERRARI</span><span class="brand-sub">MODEL SHOWROOM</span></a>
+    <div class="header-actions">
+      <button class="search-button" id="searchButton" aria-label="Find a Ferrari model">Find a model</button>
+      <button class="bag-button" id="bagButton" aria-label="Saved Ferrari models">Saved <span class="bag-count" id="bagCount">0</span></button>
+    </div>
+  </header>
+  <main id="top">
+    <section class="hero" aria-label="Ferrari model showroom">
+      <div class="hero-content">
+        <div class="eyebrow">The Ferrari model range</div>
+        <h1>Made<br>to <span>move.</span></h1>
+        <p class="hero-copy">From grand touring to the next generation of hybrid performance, explore the cars that make every drive an occasion.</p>
+        <a class="primary-link" href="#collection">Explore Ferrari cars <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="hero-index"><b>01</b> &nbsp;/&nbsp; THE FERRARI RANGE</div>
+    </section>
+    <div class="service-strip" aria-label="Showroom information">
+      <div class="service"><span class="service-mark">✳</span> Ferrari model range</div>
+      <div class="service"><span class="service-mark">↗</span> Launch and market prices shown</div>
+      <div class="service"><span class="service-mark">↺</span> Personal viewing by request</div>
+    </div>
+    <section class="shop-section" id="collection">
+      <div class="section-top">
+        <div>
+          <div class="section-kicker">Ferrari road cars, special series &amp; track models</div>
+          <h2>Find your Ferrari.</h2>
+          <p class="section-note">Approximate U.S. launch prices; pre-owned and collector values vary by year, condition and market.</p>
+        </div>
+        <div class="category-tabs" role="group" aria-label="Filter Ferrari cars">
+          <button class="active" data-filter="all">All cars</button>
+          <button data-filter="gt">GT</button>
+          <button data-filter="hybrid">Hybrid</button>
+          <button data-filter="suv">Purosangue</button>
+          <button data-filter="special">Limited editions</button>
+          <button data-filter="track">Track cars</button>
+          <button data-filter="classic">Classics</button>
+        </div>
+      </div>
+      <div class="product-grid" id="productGrid" aria-live="polite"></div>
+    </section>
+    <section class="feature-band" id="story">
+      <div class="feature-copy">
+        <div class="eyebrow">Designed and built in Maranello</div>
+        <h2>Choose your<br>kind of drive.</h2>
+        <p>Every Ferrari starts with a singular idea: make the drive unforgettable. Explore the range and save the models you want to know more about.</p>
+        <a class="primary-link" href="#collection">View the range <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <a class="footer-brand" href="#top">FERRARI</a>
+    <div>© 2026 Ferrari Model Showroom</div>
+    <nav class="footer-links" aria-label="Footer navigation"><a href="#story">About Ferrari</a><a href="#collection">Model range</a><a href="#collection">Inquiries</a></nav>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    const products = [
+      { name: "Ferrari Roma", type: "V8 grand touring coupe", price: 247308, category: "gt", tag: "Grand touring", image: "photo-1492144534655-ae79c964c9d7", alt: "Grand touring sports car", description: "A composed front-engined V8 coupe made for long-distance pace and everyday use." },
+      { name: "Ferrari Roma Spider", type: "V8 open-top grand touring", price: 277970, category: "gt", tag: "Grand touring", image: "photo-1552519507-da3b142c6e3d", alt: "Red grand touring sports car", description: "An open-air grand tourer pairing a retractable fabric roof with the Roma's V8 character." },
+      { name: "Ferrari 296 GTB", type: "V6 plug-in hybrid coupe", price: 338255, category: "hybrid", tag: "Plug-in hybrid", image: "photo-1592198084033-aade902d1aae", alt: "Red mid-engine sports car", description: "A mid-engine plug-in hybrid built around a twin-turbo V6 and electric boost." },
+      { name: "Ferrari 296 GTS", type: "V6 plug-in hybrid spider", price: 376950, category: "hybrid", tag: "Open-top hybrid", image: "photo-1503736334956-4c8f8e92946d", alt: "Open-top sports car", description: "The open-top 296 blends a folding hardtop with Ferrari's V6 hybrid powertrain." },
+      { name: "Ferrari Purosangue", type: "V12 four-door", price: 398350, category: "suv", tag: "Four-door Ferrari", image: "photo-1544829099-b9a0c07fad1a", alt: "Performance grand touring vehicle", description: "A four-door, four-seat V12 with sports-car responses and room for the whole crew." },
+      { name: "Ferrari 12Cilindri", type: "V12 grand touring coupe", price: 423000, category: "gt", tag: "Naturally aspirated V12", image: "photo-1533473359331-0135ef1b58bf", alt: "V12 grand touring sports car", description: "A front-mounted naturally aspirated V12 grand tourer shaped for high-speed travel." },
+      { name: "Ferrari 12Cilindri Spider", type: "V12 open-top grand touring", price: 465000, category: "gt", tag: "Open-top V12", image: "photo-1525609004556-c46c7d6cf023", alt: "Open-top grand touring car", description: "The 12Cilindri's front-engine V12 experience with the roof lowered to the sky." },
+      { name: "Ferrari SF90 Stradale", type: "V8 plug-in hybrid coupe", price: 524815, category: "hybrid", tag: "Series-production hybrid", image: "photo-1503376780353-7e6692767b70", alt: "High-performance hybrid sports car", description: "A plug-in hybrid V8 flagship with electric front-axle drive and all-wheel traction." },
+      { name: "Ferrari SF90 Spider", type: "V8 plug-in hybrid spider", price: 575000, category: "hybrid", tag: "Open-top hybrid", image: "photo-1535732820275-9ffd998cac22", alt: "Open-top hybrid sports car", description: "The SF90's three-motor hybrid performance in a retractable-roof configuration." },
+      { name: "Ferrari 812 Competizione", type: "V12 limited-series coupe", price: 600000, category: "special", tag: "Limited series", image: "photo-1502161254066-6c74afbf07aa", alt: "Limited-series performance coupe", description: "A track-focused front-V12 special series developed from the 812 Superfast." },
+      { name: "Ferrari 812 Competizione A", type: "V12 limited-series targa", price: 675000, category: "special", tag: "Limited series", image: "photo-1507136566006-cfc505b114fc", alt: "Open-top limited-series performance car", description: "The targa version of the 812 Competizione pairs an open cabin with a high-revving V12." },
+      { name: "Ferrari SF90 XX Stradale", type: "V8 plug-in hybrid special series", price: 890000, category: "special", tag: "XX special series", image: "photo-1519681393784-d120267933ba", alt: "Special-series performance sports car", description: "A road-legal XX variant sharpened with more power, aero and track-focused calibration." },
+      { name: "Ferrari SF90 XX Spider", type: "V8 plug-in hybrid special series", price: 1000000, category: "special", tag: "XX special series", image: "photo-1503736334956-4c8f8e92946d", alt: "Open-top special-series sports car", description: "The XX Spider combines hybrid performance with open-top special-series character." },
+      { name: "Ferrari Monza SP1", type: "V12 limited-series barchetta", price: 1750000, category: "special", tag: "Icona series", image: "photo-1503376780353-7e6692767b70", alt: "Single-seat limited-series sports car", description: "A single-seat Icona barchetta reinterpreting Ferrari racing shapes of the 1950s." },
+      { name: "Ferrari Monza SP2", type: "V12 two-seat barchetta", price: 1800000, category: "special", tag: "Icona series", image: "photo-1525609004556-c46c7d6cf023", alt: "Two-seat limited-series sports car", description: "A two-seat Icona barchetta with a naturally aspirated V12 and minimal windscreen." },
+      { name: "Ferrari Daytona SP3", type: "V12 Icona series", price: 2250000, category: "special", tag: "Icona series", image: "photo-1592198084033-aade902d1aae", alt: "Limited-series V12 sports car", description: "An Icona tribute to Ferrari's 1960s endurance prototypes, with a mid-mounted V12." },
+      { name: "Ferrari F80", type: "V6 hybrid supercar · limited production", price: 3900000, category: "special", tag: "Supercar · limited production", image: "photo-1552519507-da3b142c6e3d", alt: "Hybrid supercar", description: "A limited-run hybrid supercar combining a twin-turbo V6 with three electric motors." },
+      { name: "Ferrari 499P Modificata", type: "Track-only hybrid prototype", price: 5400000, category: "track", tag: "Track-only", image: "photo-1535732820275-9ffd998cac22", alt: "Track-focused hybrid racing prototype", description: "A track-only customer prototype inspired by Ferrari's Le Mans Hypercar program." },
+      { name: "Ferrari F8 Tributo", type: "Twin-turbo V8 mid-engine coupe", price: 299000, priceLabel: "Market est.", category: "classic", tag: "Pre-owned", image: "photo-1552519507-da3b142c6e3d", alt: "Mid-engine V8 coupe", description: "A mid-engine berlinetta celebrating Ferrari's twin-turbo V8 with sharp road manners." },
+      { name: "Ferrari F8 Spider", type: "Twin-turbo V8 open-top", price: 335000, priceLabel: "Market est.", category: "classic", tag: "Pre-owned", image: "photo-1503736334956-4c8f8e92946d", alt: "Open-top V8 sports car", description: "The F8's responsive V8 and mid-engine balance in a retractable-hardtop spider." },
+      { name: "Ferrari 812 Superfast", type: "Naturally aspirated V12 coupe", price: 389000, priceLabel: "Market est.", category: "classic", tag: "Pre-owned", image: "photo-1502161254066-6c74afbf07aa", alt: "Front-engine V12 coupe", description: "A front-engine V12 grand tourer known for its high-revving character and pace." },
+      { name: "Ferrari 812 GTS", type: "Naturally aspirated V12 spider", price: 459000, priceLabel: "Market est.", category: "classic", tag: "Pre-owned", image: "photo-1525609004556-c46c7d6cf023", alt: "Open-top front-engine V12 car", description: "A retractable-hardtop version of the 812, pairing open-air touring with V12 power." },
+      { name: "Ferrari Portofino M", type: "Twin-turbo V8 grand touring spider", price: 239000, priceLabel: "Market est.", category: "classic", tag: "Pre-owned", image: "photo-1533473359331-0135ef1b58bf", alt: "V8 grand touring convertible", description: "A four-seat grand tourer with a folding hardtop, versatile cabin and twin-turbo V8." },
+      { name: "Ferrari 488 Pista", type: "Twin-turbo V8 track-focused coupe", price: 489000, priceLabel: "Market est.", category: "classic", tag: "Collector car", image: "photo-1592198084033-aade902d1aae", alt: "Track-focused mid-engine sports car", description: "A lightweight 488 special series with track-derived aerodynamics and V8 response." },
+      { name: "Ferrari 458 Italia", type: "Naturally aspirated V8 coupe", price: 210000, priceLabel: "Market est.", category: "classic", tag: "Modern classic", image: "photo-1492144534655-ae79c964c9d7", alt: "Mid-engine naturally aspirated sports car", description: "A celebrated mid-engine V8 with a naturally aspirated soundtrack and precise handling." },
+      { name: "Ferrari LaFerrari", type: "V12 hybrid limited series", price: 4800000, priceLabel: "Market est.", category: "classic", tag: "Collector car", image: "photo-1519681393784-d120267933ba", alt: "Hybrid limited-series hypercar", description: "A landmark hybrid hypercar pairing a V12 with Ferrari's HY-KERS electric system." },
+      { name: "Ferrari F40", type: "Twin-turbo V8 analog supercar", price: 2700000, priceLabel: "Market est.", category: "classic", tag: "Modern classic", image: "photo-1507136566006-cfc505b114fc", alt: "Classic lightweight supercar", description: "A lightweight twin-turbo V8 supercar built to mark Ferrari's 40th anniversary." },
+      { name: "Ferrari F50", type: "Naturally aspirated V12 supercar", price: 5200000, priceLabel: "Market est.", category: "classic", tag: "Collector car", image: "photo-1503376780353-7e6692767b70", alt: "V12 limited-production supercar", description: "A limited-production V12 supercar with a carbon-fiber chassis and racing-derived engineering." }
+    ];
+    const productGrid = document.getElementById("productGrid");
+    const bagCount = document.getElementById("bagCount");
+    const toast = document.getElementById("toast");
+    let bagTotal = 0;
+    let toastTimer;
+
+    function renderProducts(filter = "all", search = "") {
+      const matching = products.filter((product) => (filter === "all" || product.category === filter) && `${product.name} ${product.type}`.toLowerCase().includes(search.toLowerCase()));
+      productGrid.innerHTML = matching.length ? matching.map((product, index) => `
+        <article class="product-card" style="animation-delay:${index * 45}ms">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/${product.image}?auto=format&fit=crop&w=700&q=80" alt="${product.alt}" loading="lazy">
+            <span class="product-tag">${product.tag}</span>
+            <button class="quick-add" data-add="${product.name}" aria-label="Save ${product.name} to shortlist">+</button>
+          </div>
+          <div class="product-meta"><div><p class="product-name">${product.name}</p><p class="product-type">${product.type}</p></div><span class="product-price"><small>${product.priceLabel || "Starting at"}</small>$${product.price.toLocaleString()}</span></div>
+          <p class="product-description">${product.description}</p>
+        </article>`).join("") : "<p>No Ferrari models match that search.</p>";
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    document.querySelectorAll(".category-tabs button").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelector(".category-tabs button.active").classList.remove("active");
+        button.classList.add("active");
+        renderProducts(button.dataset.filter);
+      });
+    });
+    document.querySelectorAll("[data-filter-link]").forEach((link) => {
+      link.addEventListener("click", () => {
+        const filter = link.dataset.filterLink;
+        document.querySelectorAll(".category-tabs button").forEach((button) => button.classList.toggle("active", button.dataset.filter === filter));
+        renderProducts(filter);
+      });
+    });
+    productGrid.addEventListener("click", (event) => {
+      const addButton = event.target.closest("[data-add]");
+      if (!addButton) return;
+      bagCount.textContent = ++bagTotal;
+      showToast(`${addButton.dataset.add} saved to your shortlist`);
+    });
+    document.getElementById("bagButton").addEventListener("click", () => showToast(bagTotal ? `${bagTotal} ${bagTotal === 1 ? "Ferrari" : "Ferraris"} saved to your shortlist` : "Your shortlist is empty."));
+    document.getElementById("searchButton").addEventListener("click", () => {
+      const search = window.prompt("Find a Ferrari model");
+      if (search === null) return;
+      document.querySelectorAll(".category-tabs button").forEach((button) => button.classList.toggle("active", button.dataset.filter === "all"));
+      renderProducts("all", search.trim());
+      document.getElementById("collection").scrollIntoView({ behavior: "smooth" });
+    });
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      const nav = document.getElementById("mainNav");
+      const isOpen = nav.classList.toggle("open");
+      document.getElementById("menuToggle").setAttribute("aria-expanded", String(isOpen));
+    });
+    renderProducts();
+  </script>
+</body>
+</html>
